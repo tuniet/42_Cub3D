@@ -2,17 +2,17 @@
 
 void initdata(t_data **data)
 {
-    *data = calloc(1, sizeof(t_data));
-    (*data)->map = calloc(1, sizeof(t_map));
+    *data = ft_calloc(1, sizeof(t_data));
+    (*data)->map = ft_calloc(1, sizeof(t_map));
+    (*data)->game = ft_calloc(1, sizeof(t_game));
     (*data)->map_fd = 0;
 }
 int main(int ac, char *av[])
 {
     t_data *data;
     initdata(&data);
-    if(ac != 2 || av[1][0] == '\0' || !valid_extension(av) || !map_exists(av, data))
+    if(ac != 2 || av[1][0] == '\0')
         return(printf("Error\nUsage: ./cub3D [.cub map]\n"), exit(1), 1);
-    if(!parse_map(data))
-        exit(1);
+    mainloop(data);
     return 0;
 }

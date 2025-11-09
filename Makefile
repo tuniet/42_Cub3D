@@ -2,24 +2,33 @@ NAME		=		cub3D
 
 INC_DIR		=		./include
 HEADER_FILE	=		$(INC_DIR)/cub3D.h
-LIBFT		=		libft
+DEPS_DIR	=		./dependencies
+LIBFT		=		$(DEPS_DIR)/libft
+MLX			=		$(DEPS_DIR)/mlx
 SRC_DIR		=		./src
 SRCS		=		$(addprefix $(SRC_DIR)/, \
 					main.c \
-					parsing.c file_check.c)
+					file_check.c \
+					draw.c \
+					raycasting.c \
+					load_text.c \
+					keys.c move.c play.c)
 
 OBJ_DIR		=		./obj
 OBJS		=		$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 #CFLAGS		=		-Wall -Wextra -Werror
-CFLAGS		=		-g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS		=		-g -fsanitize=address -Wall -Wextra
+MLXFLAGS	=		-L$(MLX) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+LIBFT_FLAGS	=		-L$(LIBFT) -lft
 CC			=		cc
 
 all:	${NAME}
 
 $(NAME): $(OBJS)
 	@make -C $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT) -lft -o $(NAME) $(LDFLAGS) && \
+	@make -C $(MLX)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLXFLAGS) -o $(NAME) && \
 	(printf "cub3D compiled successfully.\n")
 
 $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(HEADER_FILE)
@@ -29,6 +38,7 @@ $(OBJ_DIR)/%.o:	$(SRC_DIR)/%.c $(HEADER_FILE)
 clean:
 	@rm -f $(OBJS)
 	@rm -rf $(OBJ_DIR)
+	@make -s -C $(MLX) clean
 	@printf "cub3D object files cleaned.\n"
 
 fclean: clean
