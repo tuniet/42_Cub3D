@@ -48,15 +48,13 @@ static void	init_game(t_data *data)
     data->game->time = 0;
     data->game->oldTime = 0;
 
-    data->game->c_hex = 0x87CEEB; // Sky blue
-    data->game->f_hex = 0x228B22; // Forest green
+    data->game->c_hex = 0x87CEEB;
+    data->game->f_hex = 0x228B22;
 
     data->game->img.img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
     data->game->img.addr = mlx_get_data_addr(data->game->img.img,
         &data->game->img.bpp, &data->game->img.line_length, &data->game->img.endian);
 
-
-    // Allocate world_map
     data->game->world_map = malloc(sizeof(int *) * data->game->map_height);
     if (!data->game->world_map)
         return (perror("malloc"), exit(1));
@@ -88,7 +86,6 @@ int render(t_data *data)
     clear_image(data);
     update_movement(data, data->game->world_map);
     draw_view(data);
-    /* push rendered image to the window */
     mlx_put_image_to_window(data->game->mlx, data->game->win,
                           data->game->img.img, 0, 0);
     return 0;

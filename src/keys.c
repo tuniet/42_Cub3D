@@ -18,18 +18,15 @@ void	update_movement(t_data *data, int **worldMap)
     int map_w = data->game->map_width;
     double speed = data->game->moveSpeed;
 
-    /* Move forward */
     if (data->game->key_w)
     {
         nextX = oldX + data->game->dirX * speed;
         nextY = oldY + data->game->dirY * speed;
-        /* check X move */
         if ((int)nextX >= 0 && (int)nextX < map_h && (int)oldY >= 0 && (int)oldY < map_w)
         {
             if (worldMap[(int)nextX][(int)oldY] == 0)
                 data->game->posX = nextX;
         }
-        /* check Y move */
         if ((int)oldX >= 0 && (int)oldX < map_h && (int)nextY >= 0 && (int)nextY < map_w)
         {
             if (worldMap[(int)oldX][(int)nextY] == 0)
@@ -37,7 +34,6 @@ void	update_movement(t_data *data, int **worldMap)
         }
     }
 
-    /* Move backwards */
     if (data->game->key_s)
     {
         nextX = oldX - data->game->dirX * speed;
@@ -54,7 +50,6 @@ void	update_movement(t_data *data, int **worldMap)
         }
     }
 
-    /* Rotation (unchanged) */
     if (data->game->key_d)
         rotate_right(data->game);
     if (data->game->key_a)

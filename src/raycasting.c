@@ -2,21 +2,15 @@
 
 static void raycast_init(t_data *data, t_raycast *ray, int x)
 {
-  //calculate ray position and direction
-      ray->cameraX = 2.0 * (double)x / (double)WIDTH - 1.0; //x-coordinate in camera space
+      ray->cameraX = 2.0 * (double)x / (double)WIDTH - 1.0;
       ray->rayDirX = data->game->dirX + data->game->planeX *  ray->cameraX;
       ray->rayDirY = data->game->dirY + data->game->planeY *  ray->cameraX;
-      //which box of the map we're in
       ray->mapX = (int)data->game->posX;
       ray->mapY = (int)data->game->posY;
-
-      //length of ray from current position to next x or y-side
-
-       //length of ray from one x or y-side to next x or y-side
       ray->deltaDistX = ( ray->rayDirX == 0) ? 1e30 : fabs(1 /  ray->rayDirX);
       ray->deltaDistY = ( ray->rayDirY == 0) ? 1e30 : fabs(1 /  ray->rayDirY);
 
-      ray->hit = 0; //was there a wall hit?
+      ray->hit = 0;
 }
 
 static void raycast_dist(t_data *data, t_raycast *ray)
@@ -47,7 +41,6 @@ static void DDA(t_data *data, t_raycast *ray)
 {
 	 while (ray->hit == 0)
       {
-        //jump to next map square, either in x-direction, or in y-direction
         if ( ray->sideDistX <  ray->sideDistY)
         {
            ray->sideDistX +=  ray->deltaDistX;
@@ -60,14 +53,13 @@ static void DDA(t_data *data, t_raycast *ray)
           ray->mapY += ray->stepY;
           ray->side = 1;
         }
-        //Check if ray has hit a wall
         if(ray->mapX >= 0 && ray->mapX < data->game->map_height && ray->mapY >= 0 && ray->mapY < data->game->map_width)
         {
           if (data->game->world_map[ray->mapX][ray->mapY] > 0) ray->hit = 1;
         }
         else
         {
-          ray->hit = 1; // Prevents out-of-bounds access
+          ray->hit = 1;
         }
       }
 }
@@ -81,19 +73,11 @@ static void wall_calc(t_raycast *ray)
   {
       ray->perpWallDist = 0.0001;
   }
-
-      //Calculate height of line to draw on screen
       ray->lineHeight = (int)(HEIGHT /  ray->perpWallDist);
-
-      //calculate lowest and highest pixel to fill in current stripe
       ray->drawStart = -ray->lineHeight / 2 + HEIGHT / 2;
       if(ray->drawStart < 0)ray->drawStart = 0;
       ray->drawEnd = ray->lineHeight / 2 + HEIGHT / 2;
       if(ray->drawEnd >= HEIGHT)ray->drawEnd = HEIGHT - 1;
-
-	  //int texNum = data->game->world_map[ray->mapX][ray->mapY] - 1; //1 subtracted from it so that texture 0 can be used!
-
-      //draw_line(data, x, drawStart, x, drawEnd, color);
 }
 
 static void sel_texture(t_data *data, t_img *texture, t_raycast ray)

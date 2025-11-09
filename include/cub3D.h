@@ -114,9 +114,6 @@ int parse_map(t_data *data);
 //play.c
 void mainloop(t_data *data);
 
-//draw.c
-void draw_line(t_data *data, int beginX, int beginY, int endX, int endY, int color);
-
 //keys.c
 int close_window(t_data *data);
 void	update_movement(t_data *data, int **worldMap);
