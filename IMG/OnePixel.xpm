@@ -1,0 +1,8 @@
+/* XPM */
+static char *OnePixel[] = {
+/* columns rows colors chars-per-pixel */
+"1 1 1 1 ",
+"  c #0329D4",
+/* pixels */
+" "
+};
