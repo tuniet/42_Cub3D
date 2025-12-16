@@ -61,13 +61,6 @@ static void init_map(t_data *data)
 	}
 }
 
-//data->game->dirX = -1;
-	//data->game->dirY = 0;
-	//data->game->posX = 10;
-	//data->game->posY = 5;
-	//data->game->planeX = 0;
-	//data->game->planeY = 0.66;
-
 void init_game(t_data *data)
 {
 	data->game->mlx = mlx_init();

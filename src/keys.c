@@ -1,7 +1,6 @@
 #include "../include/cub3D.h"
 #include <math.h>
 
-/* check 4 corner cells around (x,y) with given radius */
 static int	can_move(double x, double y, int **worldMap, int map_h, int map_w, double radius)
 {
     double rx[2] = {-radius, radius};
@@ -23,39 +22,49 @@ static int	can_move(double x, double y, int **worldMap, int map_h, int map_w, do
     return 1;
 }
 
-void	update_movement(t_data *data, int **worldMap)
+static void move(t_data *data, double old[], int **worldMap, int map_size[], double variables[])
 {
-    double oldX = data->game->posX;
-    double oldY = data->game->posY;
-    double nextX;
-    double nextY;
-    int map_h = data->game->map_height;
-    int map_w = data->game->map_width;
-    double speed = data->game->moveSpeed;
-    double radius = 0.25; /* collision margin: increase to make collision "wider" */
+    double next[2];
 
     if (data->game->key_w)
     {
-        nextX = oldX + data->game->dirX * speed;
-        nextY = oldY + data->game->dirY * speed;
-        if (can_move(nextX, oldY, worldMap, map_h, map_w, radius))
-            data->game->posX = nextX;
-        if (can_move(oldX, nextY, worldMap, map_h, map_w, radius))
-            data->game->posY = nextY;
+        next[0] = old[0] + data->game->dirX * variables[0];
+        next[1] = old[1] + data->game->dirY * variables[0];
+        if (can_move(next[0], old[1], worldMap, map_size[0], map_size[1], variables[1]))
+            data->game->posX = next[0];
+        if (can_move(old[0], next[1], worldMap, map_size[0], map_size[1], variables[1]))
+            data->game->posY = next[1];
     }
     if (data->game->key_s)
     {
-        nextX = oldX - data->game->dirX * speed;
-        nextY = oldY - data->game->dirY * speed;
-        if (can_move(nextX, oldY, worldMap, map_h, map_w, radius))
-            data->game->posX = nextX;
-        if (can_move(oldX, nextY, worldMap, map_h, map_w, radius))
-            data->game->posY = nextY;
+        next[0] = old[0] - data->game->dirX * variables[0];
+        next[1] = old[1] - data->game->dirY * variables[0];
+        if (can_move(next[0], old[1], worldMap, map_size[0], map_size[1], variables[1]))
+            data->game->posX = next[0];
+        if (can_move(old[0], next[1], worldMap, map_size[0], map_size[1], variables[1]))
+            data->game->posY = next[1];
     }
     if (data->game->key_d)
         rotate_right(data->game);
     if (data->game->key_a)
         rotate_left(data->game);
+}
+void	update_movement(t_data *data, int **worldMap)
+{
+    double old[2];
+    int map_size[2];
+    double variables[2];
+    double radius = 0.25;
+
+    old[0] = data->game->posX;
+    old[1] = data->game->posY;
+    map_size[0] = data->game->map_height;
+    map_size[1] = data->game->map_width;
+    variables[0] = data->game->moveSpeed;
+    variables[1] = radius;
+
+    move(data, old, worldMap, map_size, variables);
+
 }
 
 int	key_press(int key, t_data *data)
