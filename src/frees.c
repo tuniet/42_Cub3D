@@ -1,6 +1,6 @@
 #include "../include/cub3D.h"
 
-static void free_all(t_data *data)
+static void free_game(t_data *data)
 {
 	int i;
 
@@ -22,7 +22,13 @@ static void free_all(t_data *data)
 		mlx_destroy_display(data->game->mlx);
 		free(data->game);
 	}
+}
 
+static void free_all(t_data *data)
+{
+	int i;
+
+	free_game(data);
 	if (data->map)
 	{
 		free(data->map->north_text->path);
@@ -38,9 +44,7 @@ static void free_all(t_data *data)
 		free_split(data->map->matrix);
 		free(data->map);
 	}
-
 	free(data);
-
 }
 int	close_window(t_data *data)
 {
