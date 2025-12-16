@@ -1,14 +1,6 @@
 #include "../include/cub3D.h"
 #include <math.h>
 
-int	close_window(t_data *data)
-{
-    //frees
-    (void)data;
-    exit(0);
-    return (0);
-}
-
 /* check 4 corner cells around (x,y) with given radius */
 static int	can_move(double x, double y, int **worldMap, int map_h, int map_w, double radius)
 {

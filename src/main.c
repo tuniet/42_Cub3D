@@ -26,11 +26,12 @@ int main(int ac, char *av[])
 {
     t_data *data;
 
-    initdata(&data);
+
     if(ac != 2 || av[1][0] == '\0')
         return (printf("Error\nUsage: ./cub3D [.cub map]\n"), 1);
     if(!has_cub_extension(av[1]))
         return (printf("Error\nInvalid file extension\n"), 1);
+    initdata(&data);
     data->map_fd = open(av[1], O_RDONLY);
     if (data->map_fd < 0)
         return (perror("open"), 1);

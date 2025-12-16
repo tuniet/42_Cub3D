@@ -13,6 +13,8 @@ SRCS		=		$(addprefix $(SRC_DIR)/, \
 					raycasting.c \
 					load_text.c \
 					parser.c \
+					init.c \
+					frees.c \
 					keys.c move.c play.c)
 
 OBJ_DIR		=		./obj

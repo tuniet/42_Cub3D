@@ -115,10 +115,9 @@ int parse_map(t_data *data);
 void mainloop(t_data *data);
 
 //keys.c
-int close_window(t_data *data);
 void	update_movement(t_data *data, int **worldMap);
-int	key_press(int key, t_data *data);
-int	key_release(int key, t_data *data);
+int	    key_press(int key, t_data *data);
+int	    key_release(int key, t_data *data);
 
 //move.c
 void move_forward(int poscheckX, int poscheckY, t_game *game);
@@ -139,9 +138,16 @@ void put_pixel_floor(t_data *data, int x, int y);
 void	load_textures(t_data *data);
 
 //parser.c
+void   free_split(char **split);
 void	parse_cub_file(t_data *data);
 void	error_exit(char *msg);
 int		map_height(char **map);
 int		map_width(char **map);
+char    get_map_char(t_map *map, int y, int x);
 
+//frees.c
+int    close_window(t_data *data);
+
+//init.c
+void    init_game(t_data *data);
 #endif
