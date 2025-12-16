@@ -13,6 +13,12 @@ SRCS		=		$(addprefix $(SRC_DIR)/, \
 					raycasting.c \
 					load_text.c \
 					parser.c \
+					parser_utils.c \
+					parser_map.c \
+					parser_config.c \
+					error.c \
+					gnl.c \
+					utils.c \
 					init.c \
 					frees.c \
 					keys.c move.c play.c)
