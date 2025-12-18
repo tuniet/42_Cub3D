@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:32:47 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:32:48 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:52:01 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	sel_texture(t_data *data, t_img *texture, t_raycast ray)
 {
 	if (ray.side == 1)
 	{
-		if (ray.rayDirY < 0)
+		if (ray.ray_diry < 0)
 			*texture = data->game->textures[0];
 		else
 			*texture = data->game->textures[2];
 	}
 	else
 	{
-		if (ray.rayDirX < 0)
+		if (ray.ray_dirx < 0)
 			*texture = data->game->textures[3];
 		else
 			*texture = data->game->textures[1];
@@ -33,24 +33,24 @@ static void	sel_texture(t_data *data, t_img *texture, t_raycast ray)
 static void	texture_calc(t_data *data, t_raycast *ray, t_img *texture)
 {
 	if (ray->side == 0)
-		ray->wallX = data->game->posY + ray->perpWallDist * ray->rayDirY;
+		ray->wall_x = data->game->pos_y + ray->perpwall_dist * ray->ray_diry;
 	else
-		ray->wallX = data->game->posX + ray->perpWallDist * ray->rayDirX;
-	ray->wallX -= floor(ray->wallX);
-	ray->tex_x = (int)(ray->wallX * (double)(texture->width));
-	if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1
-			&& ray->rayDirY < 0))
+		ray->wall_x = data->game->pos_x + ray->perpwall_dist * ray->ray_dirx;
+	ray->wall_x -= floor(ray->wall_x);
+	ray->tex_x = (int)(ray->wall_x * (double)(texture->width));
+	if ((ray->side == 0 && ray->ray_dirx > 0) || (ray->side == 1
+			&& ray->ray_diry < 0))
 		ray->tex_x = texture->width - ray->tex_x - 1;
 }
 
 static void	draw_wall_column(t_data *data, t_raycast *ray, t_img *texture,
 		int x)
 {
-	ray->y = ray->drawStart;
-	while (ray->y < ray->drawEnd)
+	ray->y = ray->draw_start;
+	while (ray->y < ray->draw_end)
 	{
-		ray->d = ray->y * 256 - HEIGHT * 128 + ray->lineHeight * 128;
-		ray->tex_y = ((ray->d * texture->height) / ray->lineHeight) / 256;
+		ray->d = ray->y * 256 - HEIGHT * 128 + ray->line_height * 128;
+		ray->tex_y = ((ray->d * texture->height) / ray->line_height) / 256;
 		if (ray->tex_y < 0)
 			ray->tex_y = 0;
 		else if (ray->tex_y >= texture->height)
@@ -65,12 +65,12 @@ static void	draw_wall_column(t_data *data, t_raycast *ray, t_img *texture,
 static void	draw_ceiling_and_floor(t_raycast *ray, t_data *data, int x)
 {
 	ray->y = 0;
-	while (ray->y < ray->drawStart)
+	while (ray->y < ray->draw_start)
 	{
 		put_pixel_ceiling(data, x, ray->y);
 		ray->y++;
 	}
-	ray->y = ray->drawEnd;
+	ray->y = ray->draw_end;
 	while (ray->y < HEIGHT)
 	{
 		put_pixel_floor(data, x, ray->y);

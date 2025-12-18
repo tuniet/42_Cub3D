@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 20:07:19 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 20:28:33 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:52:56 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	update_movement(t_data *data, int **worldMap)
 	double	radius;
 
 	radius = 0.25;
-	variables[0] = data->game->moveSpeed;
+	variables[0] = data->game->move_speed;
 	variables[1] = radius;
 	move(data, worldMap, variables);
 }

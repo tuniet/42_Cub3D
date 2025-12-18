@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 20:28:36 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 20:30:56 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:52:15 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void	move_for(t_data *data, double next[], int **worldMap,
 {
 	double	check[2];
 
-	next[0] = data->game->posX + data->game->dirX * variables[0];
-	next[1] = data->game->posY + data->game->dirY * variables[0];
+	next[0] = data->game->pos_x + data->game->dir_x * variables[0];
+	next[1] = data->game->pos_y + data->game->dir_y * variables[0];
 	check[0] = next[0];
-	check[1] = data->game->posY;
+	check[1] = data->game->pos_y;
 	if (can_move(data, check, worldMap, variables[1]))
-		data->game->posX = next[0];
-	check[0] = data->game->posX;
+		data->game->pos_x = next[0];
+	check[0] = data->game->pos_x;
 	check[1] = next[1];
 	if (can_move(data, check, worldMap, variables[1]))
-		data->game->posY = next[1];
+		data->game->pos_y = next[1];
 }
 
 void	move_back(t_data *data, double next[], int **worldMap,
@@ -64,16 +64,16 @@ void	move_back(t_data *data, double next[], int **worldMap,
 {
 	double	check[2];
 
-	next[0] = data->game->posX - data->game->dirX * variables[0];
-	next[1] = data->game->posY - data->game->dirY * variables[0];
+	next[0] = data->game->pos_x - data->game->dir_x * variables[0];
+	next[1] = data->game->pos_y - data->game->dir_y * variables[0];
 	check[0] = next[0];
-	check[1] = data->game->posY;
+	check[1] = data->game->pos_y;
 	if (can_move(data, check, worldMap, variables[1]))
-		data->game->posX = next[0];
-	check[0] = data->game->posX;
+		data->game->pos_x = next[0];
+	check[0] = data->game->pos_x;
 	check[1] = next[1];
 	if (can_move(data, check, worldMap, variables[1]))
-		data->game->posY = next[1];
+		data->game->pos_y = next[1];
 }
 
 void	move(t_data *data, int **worldMap, double variables[])

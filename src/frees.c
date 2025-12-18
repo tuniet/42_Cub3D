@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:33:29 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:33:29 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:36:28 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	free_all(t_data *data)
 	}
 	free(data);
 }
+
 int	close_window(t_data *data)
 {
 	free_all(data);

@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:32:52 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:38:49 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:53:07 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	mainloop(t_data *data)
 {
 	init_game(data);
 	load_textures(data);
-	data->game->moveSpeed = 0.1;
-	data->game->rotateSpeed = 0.05;
+	data->game->move_speed = 0.1;
+	data->game->rotate_speed = 0.05;
 	mlx_hook(data->game->win, 2, 1L << 0, key_press, data);
 	mlx_hook(data->game->win, 3, 1L << 1, key_release, data);
 	mlx_hook(data->game->win, 17, 0, close_window, data);

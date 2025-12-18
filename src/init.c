@@ -6,42 +6,59 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:33:24 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:33:24 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:52:46 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3D.h"
 
-static void	set_dir(t_data *data, double dirX, double dirY, double planeX,
-		double planeY)
+static void	set_dir(t_data *data, char c, double plane_x, double plane_y)
 {
-	data->game->dirX = dirX;
-	data->game->dirY = dirY;
-	data->game->planeX = planeX;
-	data->game->planeY = planeY;
+	if (c == 'N')
+	{
+		data->game->dir_x = -1;
+		data->game->dir_y = 0;
+	}
+	else if (c == 'S')
+	{
+		data->game->dir_x = 1;
+		data->game->dir_y = 0;
+	}
+	else if (c == 'E')
+	{
+		data->game->dir_x = 0;
+		data->game->dir_y = 1;
+	}
+	else if (c == 'W')
+	{
+		data->game->dir_x = 0;
+		data->game->dir_y = -1;
+	}
+	data->game->plane_x = plane_x;
+	data->game->plane_y = plane_y;
 }
 
 static void	set_start_pos(t_data *data, char c, int y, int x)
 {
 	if (ft_strchr("NSEW", c))
 	{
-		data->game->posX = x + 0.5;
-		data->game->posY = y + 0.5;
+		data->game->pos_x = x + 0.5;
+		data->game->pos_y = y + 0.5;
 		if (c == 'N')
 		{
-			set_dir(data, -1, 0, 0, 0.66);
+			set_dir(data, c, 0, 0.66);
 		}
 		else if (c == 'S')
 		{
-			set_dir(data, 1, 0, 0, -0.66);
+			set_dir(data, c, 0, -0.66);
 		}
 		else if (c == 'E')
 		{
-			set_dir(data, 0, 1, 0.66, 0);
+			set_dir(data, c, 0.66, 0);
 		}
 		else if (c == 'W')
 		{
-			set_dir(data, 0, -1, -0.66, 0);
+			set_dir(data, c, -0.66, 0);
 		}
 	}
 }
@@ -49,8 +66,9 @@ static void	set_start_pos(t_data *data, char c, int y, int x)
 static void	init_map(t_data *data)
 {
 	char	c;
+	int		y;
+	int		x;
 
-	int x, y;
 	y = 0;
 	while (y < data->game->map_height)
 	{
@@ -83,9 +101,12 @@ void	init_game(t_data *data)
 	data->game->map_height = map_height(data->map->matrix);
 	data->game->map_width = map_width(data->map->matrix);
 	data->game->time = 0;
-	data->game->oldTime = 0;
-	data->game->f_hex = (data->map->floor_color->red << 16) | (data->map->floor_color->green << 8) | data->map->floor_color->blue;
-	data->game->c_hex = (data->map->ceiling_color->red << 16) | (data->map->ceiling_color->green << 8) | data->map->ceiling_color->blue;
+	data->game->old_time = 0;
+	data->game->f_hex = (data->map->floor_color->red << 16)
+		| (data->map->floor_color->green << 8) | data->map->floor_color->blue;
+	data->game->c_hex = (data->map->ceiling_color->red << 16)
+		| (data->map->ceiling_color->green << 8)
+		| data->map->ceiling_color->blue;
 	data->game->img.img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
 	data->game->img.addr = mlx_get_data_addr(data->game->img.img,
 			&data->game->img.bpp, &data->game->img.line_length,
@@ -95,5 +116,5 @@ void	init_game(t_data *data)
 		return (perror("malloc"), exit(1));
 	init_map(data);
 	data->game->time = 0;
-	data->game->oldTime = 0;
+	data->game->old_time = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:32:44 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:32:45 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:55:24 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,43 +14,45 @@
 
 void	raycast_init(t_data *data, t_raycast *ray, int x)
 {
-	ray->cameraX = 2.0 * (double)x / (double)WIDTH - 1.0;
-	ray->rayDirX = data->game->dirX + data->game->planeX * ray->cameraX;
-	ray->rayDirY = data->game->dirY + data->game->planeY * ray->cameraX;
-	ray->mapX = (int)data->game->posX;
-	ray->mapY = (int)data->game->posY;
-	if (ray->rayDirX == 0)
-		ray->deltaDistX = 1e30;
+	ray->camera_x = 2.0 * (double)x / (double)WIDTH - 1.0;
+	ray->ray_dirx = data->game->dir_x + data->game->plane_x * ray->camera_x;
+	ray->ray_diry = data->game->dir_y + data->game->plane_y * ray->camera_x;
+	ray->map_x = (int)data->game->pos_x;
+	ray->map_y = (int)data->game->pos_y;
+	if (ray->ray_dirx == 0)
+		ray->delta_dist_x = 1e30;
 	else
-		ray->deltaDistX = fabs(1 / ray->rayDirX);
-	if (ray->rayDirY == 0)
-		ray->deltaDistY = 1e30;
+		ray->delta_dist_x = fabs(1 / ray->ray_dirx);
+	if (ray->ray_diry == 0)
+		ray->delta_dist_y = 1e30;
 	else
-		ray->deltaDistY = fabs(1 / ray->rayDirY);
+		ray->delta_dist_y = fabs(1 / ray->ray_diry);
 	ray->hit = 0;
 }
 
 void	raycast_dist(t_data *data, t_raycast *ray)
 {
-	if (ray->rayDirX < 0)
+	if (ray->ray_dirx < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (data->game->posX - ray->mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_distx = (data->game->pos_x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - data->game->posX) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_distx = (ray->map_x + 1.0 - data->game->pos_x)
+			* ray->delta_dist_x;
 	}
-	if (ray->rayDirY < 0)
+	if (ray->ray_diry < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (data->game->posY - ray->mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_disty = (data->game->pos_y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - data->game->posY) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_disty = (ray->map_y + 1.0 - data->game->pos_y)
+			* ray->delta_dist_y;
 	}
 }
 
@@ -58,22 +60,22 @@ void	dda(t_data *data, t_raycast *ray)
 {
 	while (ray->hit == 0)
 	{
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_distx < ray->side_disty)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_distx += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_disty += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->mapX >= 0 && ray->mapX < data->game->map_height
-			&& ray->mapY >= 0 && ray->mapY < data->game->map_width)
+		if (ray->map_x >= 0 && ray->map_x < data->game->map_height
+			&& ray->map_y >= 0 && ray->map_y < data->game->map_width)
 		{
-			if (data->game->world_map[ray->mapX][ray->mapY] > 0)
+			if (data->game->world_map[ray->map_x][ray->map_y] > 0)
 				ray->hit = 1;
 		}
 		else
@@ -86,18 +88,18 @@ void	dda(t_data *data, t_raycast *ray)
 void	wall_calc(t_raycast *ray)
 {
 	if (ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+		ray->perpwall_dist = (ray->side_distx - ray->delta_dist_x);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
-	if (ray->perpWallDist <= 0.0001)
+		ray->perpwall_dist = (ray->side_disty - ray->delta_dist_y);
+	if (ray->perpwall_dist <= 0.0001)
 	{
-		ray->perpWallDist = 0.0001;
+		ray->perpwall_dist = 0.0001;
 	}
-	ray->lineHeight = (int)(HEIGHT / ray->perpWallDist);
-	ray->drawStart = -ray->lineHeight / 2 + HEIGHT / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	ray->drawEnd = ray->lineHeight / 2 + HEIGHT / 2;
-	if (ray->drawEnd >= HEIGHT)
-		ray->drawEnd = HEIGHT - 1;
+	ray->line_height = (int)(HEIGHT / ray->perpwall_dist);
+	ray->draw_start = -ray->line_height / 2 + HEIGHT / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + HEIGHT / 2;
+	if (ray->draw_end >= HEIGHT)
+		ray->draw_end = HEIGHT - 1;
 }
