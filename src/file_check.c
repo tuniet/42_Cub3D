@@ -6,7 +6,7 @@
 /*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/18 19:33:31 by antoniof          #+#    #+#             */
-/*   Updated: 2025/12/18 19:33:31 by antoniof         ###   ########.fr       */
+/*   Updated: 2025/12/18 20:58:31 by antoniof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	has_png_extension(char *path)
 	len = ft_strlen(path);
 	if (len < 4)
 		return (0);
-	return (ft_strcmp(path + len - 4, ".png") == 0);
+	return (ft_strcmp(path + len - 4, ".xpm") == 0);
 }
 
 int	has_xpm_extension(char *path)
