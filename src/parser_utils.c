@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:03 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:03 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 int	map_height(char **map)
@@ -44,8 +56,9 @@ int	is_empty_line(char *line)
 
 int	is_map_line(char *line)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (line[i] == ' ')
 		i++;
 	if (line[i] == '1' || line[i] == '0')

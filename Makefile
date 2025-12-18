@@ -11,6 +11,7 @@ SRCS		=		$(addprefix $(SRC_DIR)/, \
 					file_check.c \
 					draw.c \
 					raycasting.c \
+					raycasting02.c \
 					load_text.c \
 					parser.c \
 					parser_utils.c \
@@ -21,7 +22,8 @@ SRCS		=		$(addprefix $(SRC_DIR)/, \
 					utils.c \
 					init.c \
 					frees.c \
-					keys.c move.c play.c)
+					keys.c keys02.c \
+					move.c play.c)
 
 OBJ_DIR		=		./obj
 OBJS		=		$(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_config.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:09 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:09 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 static t_color	*parse_color(char *str)
@@ -8,8 +20,7 @@ static t_color	*parse_color(char *str)
 	rgb = ft_split(str, ',');
 	if (!rgb || split_len(rgb) != 3)
 		error_exit("Invalid color format");
-	if (!is_unsigned_number(rgb[0])
-		|| !is_unsigned_number(rgb[1])
+	if (!is_unsigned_number(rgb[0]) || !is_unsigned_number(rgb[1])
 		|| !is_unsigned_number(rgb[2]))
 		error_exit("Invalid color format");
 	c = malloc(sizeof(t_color));

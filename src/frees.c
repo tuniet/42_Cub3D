@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   frees.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:29 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:29 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
-static void free_game(t_data *data)
+static void	free_game(t_data *data)
 {
-	int i;
+	int	i;
 
 	if (data->game)
 	{
@@ -24,10 +36,8 @@ static void free_game(t_data *data)
 	}
 }
 
-static void free_all(t_data *data)
+static void	free_all(t_data *data)
 {
-	int i;
-
 	free_game(data);
 	if (data->map)
 	{
@@ -48,7 +58,7 @@ static void free_all(t_data *data)
 }
 int	close_window(t_data *data)
 {
-    free_all(data);
-    exit(0);
-    return (0);
+	free_all(data);
+	exit(0);
+	return (0);
 }

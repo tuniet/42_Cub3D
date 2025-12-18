@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_check.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:31 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:31 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 int	valid_extension(char *av[])
@@ -8,14 +20,6 @@ int	valid_extension(char *av[])
 	if (ft_strncmp(&av[1][i - 4], ".cub", 4))
 		return (1);
 	return (0);
-}
-
-int map_exists(char *av[], t_data *data)
-{
-    data->map_fd = open(av[1], O_RDONLY);
-    if (data->map_fd < 0)
-        return (perror("open"), exit(0), 0);
-    return 1;
 }
 
 int	has_png_extension(char *path)
@@ -42,8 +46,8 @@ void	check_texture_file(char *path)
 {
 	int	fd;
 
-  //TODO : change to xpn
-	//if (!has_png_extension(path))
+	// TODO : change to xpn
+	// if (!has_png_extension(path))
 	//	error_exit("Texture must be a .png file");
 	if (!has_xpm_extension(path))
 		error_exit("Texture must be a .xpm file");
@@ -52,5 +56,3 @@ void	check_texture_file(char *path)
 		error_exit("Texture file not found or unreadable");
 	close(fd);
 }
-
-

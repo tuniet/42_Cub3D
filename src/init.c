@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:24 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:24 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
-static void set_dir(t_data *data, double dirX, double dirY, double planeX, double planeY)
+static void	set_dir(t_data *data, double dirX, double dirY, double planeX,
+		double planeY)
 {
 	data->game->dirX = dirX;
 	data->game->dirY = dirY;
@@ -8,7 +21,7 @@ static void set_dir(t_data *data, double dirX, double dirY, double planeX, doubl
 	data->game->planeY = planeY;
 }
 
-static void set_start_pos(t_data *data, char c, int x, int y)
+static void	set_start_pos(t_data *data, char c, int y, int x)
 {
 	if (ft_strchr("NSEW", c))
 	{
@@ -33,23 +46,21 @@ static void set_start_pos(t_data *data, char c, int x, int y)
 	}
 }
 
-static void init_map(t_data *data)
+static void	init_map(t_data *data)
 {
-	int x, y;
-	char c;
+	char	c;
 
+	int x, y;
 	y = 0;
 	while (y < data->game->map_height)
 	{
-		data->game->world_map[y] =
-			malloc(sizeof(int) * data->game->map_width);
+		data->game->world_map[y] = malloc(sizeof(int) * data->game->map_width);
 		if (!data->game->world_map[y])
 			return (perror("malloc"), exit(1));
 		x = 0;
 		while (x < data->game->map_width)
 		{
 			c = get_map_char(data->map, y, x);
-
 			if (c == '1')
 				data->game->world_map[y][x] = 1;
 			else
@@ -61,13 +72,12 @@ static void init_map(t_data *data)
 	}
 }
 
-void init_game(t_data *data)
+void	init_game(t_data *data)
 {
 	data->game->mlx = mlx_init();
 	if (!data->game->mlx)
 		return (perror("mlx"), exit(1));
-	data->game->win = mlx_new_window(data->game->mlx, WIDTH, HEIGHT,
-									 "Cub3d");
+	data->game->win = mlx_new_window(data->game->mlx, WIDTH, HEIGHT, "Cub3d");
 	if (!data->game->win)
 		return (perror("mlx"), exit(1));
 	data->game->map_height = map_height(data->map->matrix);
@@ -76,10 +86,10 @@ void init_game(t_data *data)
 	data->game->oldTime = 0;
 	data->game->f_hex = (data->map->floor_color->red << 16) | (data->map->floor_color->green << 8) | data->map->floor_color->blue;
 	data->game->c_hex = (data->map->ceiling_color->red << 16) | (data->map->ceiling_color->green << 8) | data->map->ceiling_color->blue;
-
 	data->game->img.img = mlx_new_image(data->game->mlx, WIDTH, HEIGHT);
 	data->game->img.addr = mlx_get_data_addr(data->game->img.img,
-											 &data->game->img.bpp, &data->game->img.line_length, &data->game->img.endian);
+			&data->game->img.bpp, &data->game->img.line_length,
+			&data->game->img.endian);
 	data->game->world_map = malloc(sizeof(int *) * data->game->map_height);
 	if (!data->game->world_map)
 		return (perror("malloc"), exit(1));

@@ -8,8 +8,8 @@
 # include <fcntl.h>
 #include <math.h>
 
-# define WIDTH 640
-# define HEIGHT 480
+# define WIDTH 1080
+# define HEIGHT 1020
 
 typedef struct s_raycast
 {
@@ -108,7 +108,6 @@ typedef struct s_data
 
 //file_check.c
 int		valid_extension(char *av[]);
-int		map_exists(char *av[], t_data *data);
 int		parse_map(t_data *data);
 void	check_texture_file(char *path);
 
@@ -119,6 +118,12 @@ void mainloop(t_data *data);
 void	update_movement(t_data *data, int **worldMap);
 int		key_press(int key, t_data *data);
 int		key_release(int key, t_data *data);
+int	    can_move(t_data *data, double xy[], int **worldMap, double radius);
+void	move_for(t_data *data, double next[], int **worldMap,
+		double variables[]);
+void	move_back(t_data *data, double next[], int **worldMap,
+		double variables[]);
+void	move(t_data *data, int **worldMap, double variables[]);
 
 //move.c
 void	move_forward(int poscheckX, int poscheckY, t_game *game);
@@ -128,6 +133,10 @@ void	rotate_left(t_game *game);
 
 //raycasting.c
 void	draw_view(t_data *data);
+void	raycast_init(t_data *data, t_raycast *ray, int x);
+void	raycast_dist(t_data *data, t_raycast *ray);
+void	dda(t_data *data, t_raycast *ray);
+void	wall_calc(t_raycast *ray);
 
 //draw.c
 void	put_pixel_walls(t_img *img, int x, t_raycast *rcw);
@@ -170,7 +179,7 @@ void	free_split(char **split);
 
 //frees.c
 int		close_window(t_data *data);
-
+void    early_free(t_data *data);
 //init.c
 void	init_game(t_data *data);
 #endif

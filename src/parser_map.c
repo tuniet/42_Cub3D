@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_map.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antoniof <antoniof@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/18 19:33:06 by antoniof          #+#    #+#             */
+/*   Updated: 2025/12/18 19:33:06 by antoniof         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/cub3D.h"
 
 static int	is_valid_map_char(char c)
 {
-	return (c == ' ' || c == '0' || c == '1'
-		|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
+	return (c == ' ' || c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
 }
 
 char	get_map_char(t_map *map, int y, int x)
@@ -56,9 +68,8 @@ void	validate_closed_map(t_map *map)
 		{
 			if (get_map_char(map, y, x) == '0')
 			{
-				if (get_map_char(map, y - 1, x) == ' '
-					|| get_map_char(map, y + 1, x) == ' '
-					|| get_map_char(map, y, x - 1) == ' '
+				if (get_map_char(map, y - 1, x) == ' ' || get_map_char(map, y
+						+ 1, x) == ' ' || get_map_char(map, y, x - 1) == ' '
 					|| get_map_char(map, y, x + 1) == ' ')
 					error_exit("Map not closed");
 			}
