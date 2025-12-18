@@ -16,14 +16,13 @@ static void	free_game(t_data *data)
 {
 	int	i;
 
+	i = -1;
 	if (data->game)
 	{
 		if (data->game->world_map)
 		{
-			for (i = 0; i < data->game->map_height; i++)
-			{
+			while (++i < data->game->map_height)
 				free(data->game->world_map[i]);
-			}
 			free(data->game->world_map);
 		}
 		mlx_destroy_image(data->game->mlx, data->game->img.img);

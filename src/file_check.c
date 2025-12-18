@@ -46,9 +46,6 @@ void	check_texture_file(char *path)
 {
 	int	fd;
 
-	// TODO : change to xpn
-	// if (!has_png_extension(path))
-	//	error_exit("Texture must be a .png file");
 	if (!has_xpm_extension(path))
 		error_exit("Texture must be a .xpm file");
 	fd = open(path, O_RDONLY);

@@ -19,5 +19,3 @@ void	error_exit(char *msg)
 	write(2, "\n", 1);
 	exit(1);
 }
-
-
