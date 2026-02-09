@@ -13,7 +13,7 @@ The project focuses on low-level graphics programming in C, real-time rendering 
 
 ### Requirements
 - macOS or Linux
-- `gcc` / `cc`
+- `cc`
 - `make`
 - **miniLibX**
 - `math` library (`-lm`)
@@ -33,8 +33,7 @@ Run the program with a valid `.cub` map file:
 ```
 
 ### Controls
-- `W`, `A`, `S`, `D` → Move the player
-- `←`, `→` → Rotate the view
+- `W`, `A`, `S`, `D` → Move the player and rotate the view
 - `ESC` or window close button → Exit the program
 
 ## Map Format (.cub)
@@ -65,7 +64,6 @@ Bonuses are evaluated only if the mandatory part is flawless.
 ### Technical References
 - Lode Vandevenne – Raycasting Tutorial
   https://lodev.org/cgtutor/raycasting.html
-- Wolfenstein 3D (1992) – Id Software
 - miniLibX documentation and source code
 - 42 Network cub3D subject PDF
 
@@ -73,11 +71,9 @@ Bonuses are evaluated only if the mandatory part is flawless.
 
 AI tools were used only as assistance, mainly for:
 - Clarifying ray-casting mathematics
-- Understanding parsing edge cases
 - Improving documentation clarity
 
 All generated suggestions were reviewed, tested, and rewritten when necessary.
-No AI-generated code was used without full understanding and ownership.
 
 ## License
 
