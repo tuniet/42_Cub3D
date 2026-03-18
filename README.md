@@ -48,17 +48,6 @@ The scene file must contain:
 
 The map must be fully closed by walls. Any invalid configuration will result in an error and program exit.
 
-## Bonus Features
-
-The bonus part may include:
-- Wall collisions
-- Minimap
-- Doors
-- Animated sprites
-- Mouse-controlled view rotation
-
-Bonuses are evaluated only if the mandatory part is flawless.
-
 ## Resources
 
 ### Technical References
@@ -66,14 +55,6 @@ Bonuses are evaluated only if the mandatory part is flawless.
   https://lodev.org/cgtutor/raycasting.html
 - miniLibX documentation and source code
 - 42 Network cub3D subject PDF
-
-### AI Usage
-
-AI tools were used only as assistance, mainly for:
-- Clarifying ray-casting mathematics
-- Improving documentation clarity
-
-All generated suggestions were reviewed, tested, and rewritten when necessary.
 
 ## License
 
