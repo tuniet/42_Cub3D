@@ -29,7 +29,7 @@ make
 Run the program with a valid `.cub` map file:
 
 ```bash
-./cub3D maps/example.cub
+./cub3D map.cub
 ```
 
 ### Controls
